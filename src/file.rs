@@ -7,7 +7,7 @@ use std::{
     time::{SystemTime, UNIX_EPOCH},
 };
 
-use crate::path::{HeaderPath, ObjectPath, SourcePath};
+use crate::path::{HeaderPath, ObjectPath, Path as PathTrait, SourcePath};
 
 #[derive(Clone)]
 pub struct SourceFile {

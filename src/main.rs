@@ -3,7 +3,7 @@ use std::{env, path::PathBuf, process::Command};
 use myke::{
     file::SourceFile,
     func::{compile, compute_dependencies, compute_need_rebuild_path, link},
-    path::SourcePath,
+    path::{Path as PathTrait, SourcePath},
 };
 fn print_help() {
     println!("Usage: myke (build|run) [Option] <File>");

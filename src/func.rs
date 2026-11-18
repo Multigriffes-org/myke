@@ -15,7 +15,7 @@ use rayon::iter::{IntoParallelRefIterator, IntoParallelRefMutIterator, ParallelI
 
 use crate::{
     file::SourceFile,
-    path::{BinaryPath, ObjectPath, SourcePath},
+    path::{BinaryPath, ObjectPath, Path as PathTrait, SourcePath},
     worker::dependencies_worker,
 };
 

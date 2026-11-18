@@ -9,7 +9,10 @@ use std::{
 use crossbeam::queue::SegQueue;
 use regex::Regex;
 
-use crate::{file::SourceFile, path::SourcePath};
+use crate::{
+    file::SourceFile,
+    path::{Path as PathTrait, SourcePath},
+};
 
 /// Worker that process the queue and return all the created SourceFile and if an error occured
 /// TODO: return a proper Error type instead of bool

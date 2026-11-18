@@ -9,47 +9,53 @@ pub struct ObjectPath(PathBuf);
 #[derive(Clone, PartialEq, Eq, PartialOrd, Ord)]
 pub struct BinaryPath(PathBuf);
 
-impl ObjectPath {
-    pub fn new(path: PathBuf) -> Self {
+pub trait Path {
+    fn new(path: PathBuf) -> Self;
+    fn path(&self) -> &PathBuf;
+    fn path_mut(&mut self) -> &mut PathBuf;
+}
+
+impl Path for ObjectPath {
+    fn new(path: PathBuf) -> Self {
         Self { 0: path }
     }
-    pub fn path(&self) -> &PathBuf {
+    fn path(&self) -> &PathBuf {
         &self.0
     }
-    pub fn path_mut(&mut self) -> &mut PathBuf {
+    fn path_mut(&mut self) -> &mut PathBuf {
         &mut self.0
     }
 }
-impl HeaderPath {
-    pub fn new(path: PathBuf) -> Self {
+impl Path for HeaderPath {
+    fn new(path: PathBuf) -> Self {
         Self { 0: path }
     }
-    pub fn path(&self) -> &PathBuf {
+    fn path(&self) -> &PathBuf {
         &self.0
     }
-    pub fn path_mut(&mut self) -> &mut PathBuf {
+    fn path_mut(&mut self) -> &mut PathBuf {
         &mut self.0
     }
 }
-impl BinaryPath {
-    pub fn new(path: PathBuf) -> Self {
+impl Path for BinaryPath {
+    fn new(path: PathBuf) -> Self {
         Self { 0: path }
     }
-    pub fn path(&self) -> &PathBuf {
+    fn path(&self) -> &PathBuf {
         &self.0
     }
-    pub fn path_mut(&mut self) -> &mut PathBuf {
+    fn path_mut(&mut self) -> &mut PathBuf {
         &mut self.0
     }
 }
-impl SourcePath {
-    pub fn new(path: PathBuf) -> Self {
+impl Path for SourcePath {
+    fn new(path: PathBuf) -> Self {
         Self { 0: path }
     }
-    pub fn path(&self) -> &PathBuf {
+    fn path(&self) -> &PathBuf {
         &self.0
     }
-    pub fn path_mut(&mut self) -> &mut PathBuf {
+    fn path_mut(&mut self) -> &mut PathBuf {
         &mut self.0
     }
 }
