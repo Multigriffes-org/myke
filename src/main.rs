@@ -69,17 +69,16 @@ fn main() {
     }
 
     //_________________________________________
-    let input_path = match PathBuf::from(&args[path_index].trim_matches('"')).canonicalize() {
-        Ok(input_path) => SourcePath::from(input_path),
-        Err(_) => {
-            eprintln!("Can't find initial path, stopping...");
-            return;
-        }
-    };
-    let Ok(mut main_file) = SourceFile::try_new(&input_path, &None) else {
+    let Ok(input_path) = PathBuf::from(&args[path_index].trim_matches('"')).canonicalize() else {
         eprintln!("Can't find initial path, stopping...");
         return;
     };
+
+    let Ok(mut main_file) = SourceFile::try_new(&SourcePath::from(input_path), &None) else {
+        eprintln!("Can't find initial path, stopping...");
+        return;
+    };
+
     main_file.update_object_path(debug_mode);
 
     let Ok((mut source_file_list, binary_path)) = compute_dependencies(main_file, debug_mode)
