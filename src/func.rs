@@ -142,7 +142,7 @@ fn compile_tuple(tuple: &(SourcePath, Option<ObjectPath>), debug_mode: bool) -> 
                 let _ = create_dir_all(parent);
             };
 
-            let mut gcc = Command::new("g++");
+            let mut gcc = Command::new("clang++");
             if debug_mode {
                 gcc.arg("-g");
             } else {
@@ -185,7 +185,7 @@ pub fn link(source_file_list: &Vec<SourceFile>, binary_path: &BinaryPath) -> i32
         let _ = create_dir_all(parent);
     };
 
-    let mut gcc = Command::new("g++");
+    let mut gcc = Command::new("clang++");
     for source_file in source_file_list {
         match source_file.get_object_path() {
             Some(object_path) => {
