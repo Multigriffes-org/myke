@@ -153,9 +153,9 @@ fn compile_tuple(tuple: &(SourcePath, Option<ObjectPath>), debug_mode: bool) -> 
                 .arg("-Wextra")
                 .arg("-Wpedantic")
                 .arg("-c")
-                .arg(source_path.path())
                 .arg("-o")
-                .arg(object_path.path());
+                .arg(object_path.path())
+                .arg(source_path.path());
 
             if let Ok(output) = gcc.output() {
                 if output.status.success() {
