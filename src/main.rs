@@ -70,12 +70,12 @@ fn main() {
 
     //_________________________________________
     let Ok(input_path) = PathBuf::from(&args[path_index].trim_matches('"')).canonicalize() else {
-        eprintln!("Can't find initial path, stopping...");
+        println!("Can't find initial path, stopping...");
         return;
     };
 
     let Ok(mut main_file) = SourceFile::try_new(&SourcePath::from(input_path), &None) else {
-        eprintln!("Can't find initial path, stopping...");
+        println!("Can't find initial path, stopping...");
         return;
     };
 
@@ -83,7 +83,7 @@ fn main() {
 
     let Ok((mut source_file_list, binary_path)) = compute_dependencies(main_file, debug_mode)
     else {
-        eprintln!("Error in dependencies searching, stopping...");
+        println!("Error in dependencies searching, stopping...");
         return;
     };
 
@@ -91,7 +91,7 @@ fn main() {
         compute_need_rebuild_path(&mut source_file_list);
 
     if compile(need_build_tuple_list, debug_mode).is_err() {
-        eprintln!("Error in compilation process, stopping...");
+        println!("Error in compilation process, stopping...");
         return;
     }
 

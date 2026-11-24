@@ -42,7 +42,7 @@ pub fn dependencies_worker(
                 match source_file.update_dependencies(regex_matcher) {
                     Ok(dependencie_tuple) => dependencie_tuple,
                     Err(err) => {
-                        eprintln!("{err}");
+                        println!("{err}");
                         error = true;
                         continue;
                     }
@@ -78,7 +78,7 @@ pub fn dependencies_worker(
                 match SourceFile::try_new(&source_path, &Some(header_path)) {
                     Ok(source_file) => Ok(source_file),
                     Err(err) => {
-                        eprintln!("{err}");
+                        println!("{err}");
                         error = true;
                         Err(err)
                     }

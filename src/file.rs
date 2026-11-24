@@ -129,7 +129,7 @@ impl SourceFile {
                     }
 
                     let Ok(captured_path) = captured_path.canonicalize() else {
-                        eprintln!(
+                        println!(
                             "Header file note found, ignored : {:?}\nDependencie of : {:?}",
                             captured_path,
                             self.source_path.path()
@@ -151,7 +151,7 @@ impl SourceFile {
                             }
                         }
                         None | Some(_) => {
-                            eprintln!(
+                            println!(
                                 "No valide extension: {:?}\nDependencie of: {:?}",
                                 captured_path,
                                 self.source_path.path()
@@ -203,7 +203,7 @@ impl SourceFile {
         match header_path_option {
             Some(header_path) => {
                 if !header_path.path().exists() {
-                    eprintln!("Header file doesn't exists: {:?}", header_path.path());
+                    println!("Header file doesn't exists: {:?}", header_path.path());
                     return Err(ErrorKind::NotFound);
                 };
             }
@@ -211,7 +211,7 @@ impl SourceFile {
         }
 
         if !source_path.path().exists() {
-            eprintln!("Source file doesn't exists: {:?}", source_path.path());
+            println!("Source file doesn't exists: {:?}", source_path.path());
             return Err(ErrorKind::NotFound);
         };
 

@@ -28,7 +28,7 @@ pub fn compute_dependencies(
 ) -> Result<(Vec<SourceFile>, BinaryPath), io::ErrorKind> {
     let binary_path = BinaryPath::new(match initial_source_file.get_object_path_ref() {
         None => {
-            eprintln!("Can't find binary path");
+            println!("Can't find binary path");
             return Err(ErrorKind::NotFound);
         }
         Some(object_path) => object_path.path().with_extension(""),
@@ -78,7 +78,7 @@ pub fn compute_dependencies(
                 general_source_file_list.append(worker_source_file_list);
             }
             Err(err) => {
-                eprintln!("{:?}", err);
+                println!("{:?}", err);
             }
         }
     }
@@ -175,8 +175,8 @@ fn compile_tuple(tuple: &(SourcePath, Option<ObjectPath>), debug_mode: bool) -> 
             }
         }
         (source_path, None) => {
-            eprintln!("No object path for {:?}", source_path.path());
-            Err(())
+            println!("No object path for {:?}", source_path.path());
+            return Err(());
         }
     }
 }
@@ -193,7 +193,7 @@ pub fn link(source_file_list: &Vec<SourceFile>, binary_path: &BinaryPath) -> i32
                 gcc.arg(object_path.path());
             }
             None => {
-                eprintln!("No object for {:?}", source_file.get_source_path().path());
+                println!("No object for {:?}", source_file.get_source_path().path());
                 continue;
             }
         }
