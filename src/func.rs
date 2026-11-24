@@ -1,7 +1,7 @@
 use std::{
     collections::HashSet,
     fs::create_dir_all,
-    io::{self, ErrorKind},
+    io::{self, ErrorKind, Write},
     process::Command,
     sync::{Arc, Mutex, atomic::AtomicU32},
     thread::{available_parallelism, spawn},
@@ -157,20 +157,21 @@ fn compile_tuple(tuple: &(SourcePath, Option<ObjectPath>), debug_mode: bool) -> 
                 .arg("-o")
                 .arg(object_path.path());
 
-            println!("Compiling : {:?}", object_path.path());
-
-            match gcc.status() {
-                Err(err) => {
-                    eprintln!("{err}");
-                    Err(())
+            if let Ok(output) = gcc.output() {
+                if output.status.success() {
+                    println!("Compiling: {:?}", object_path.path());
+                    let _ = io::stdout().write_all(&output.stdout);
+                    let _ = io::stderr().write_all(&output.stderr);
+                    return Ok(());
+                } else {
+                    println!("Failed compiling: {:?}", object_path.path());
+                    let _ = io::stdout().write_all(&output.stdout);
+                    let _ = io::stderr().write_all(&output.stderr);
+                    return Err(());
                 }
-                Ok(exit_status) => {
-                    if exit_status.success() {
-                        Ok(())
-                    } else {
-                        Err(())
-                    }
-                }
+            } else {
+                println!("Failed compiling: {:?}", object_path.path());
+                return Err(());
             }
         }
         (source_path, None) => {
