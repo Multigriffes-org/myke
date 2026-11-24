@@ -109,6 +109,12 @@ fn main() {
     if link_exit_code == 0 && run_mode {
         let mut run_command = Command::new(&binary_path.path());
         run_command.args(&args[path_index + 1..]);
-        let _ = run_command.status();
+        match run_command.status() {
+            Err(err) => {
+                println!("Can't launch program: {err}");
+                return;
+            }
+            _ => {}
+        };
     }
 }
