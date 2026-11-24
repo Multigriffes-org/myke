@@ -143,7 +143,12 @@ impl SourceFile {
                             SourcePath::from(captured_path.with_extension("cpp"))
                         }
                         Some(extension) if extension == OsStr::new("h") => {
-                            SourcePath::from(captured_path.with_extension("c"))
+                            let path = captured_path.with_extension("c");
+                            if path.exists() {
+                                SourcePath::from(path)
+                            } else {
+                                SourcePath::from(captured_path.with_extension("cpp"))
+                            }
                         }
                         None | Some(_) => {
                             eprintln!(
@@ -154,6 +159,14 @@ impl SourceFile {
                             continue;
                         }
                     };
+                    if !source_path.path().exists() {
+                        println!(
+                            "Source file note found, ignored : {:?}\nDependencie of : {:?}",
+                            source_path.path(),
+                            self.source_path.path()
+                        );
+                        continue;
+                    }
                     let header_path = HeaderPath::from(captured_path);
 
                     self.dependencies.push((source_path, header_path));
