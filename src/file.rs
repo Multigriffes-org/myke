@@ -147,7 +147,7 @@ impl SourceFile {
                         }
                         None | Some(_) => {
                             eprintln!(
-                                "No valide extension : {:?}\nDependencie of : {:?}",
+                                "No valide extension: {:?}\nDependencie of: {:?}",
                                 captured_path,
                                 self.source_path.path()
                             );
@@ -190,7 +190,7 @@ impl SourceFile {
         match header_path_option {
             Some(header_path) => {
                 if !header_path.path().exists() {
-                    eprintln!("Header file doesn't exists {:?}", header_path.path());
+                    eprintln!("Header file doesn't exists: {:?}", header_path.path());
                     return Err(ErrorKind::NotFound);
                 };
             }
@@ -198,7 +198,7 @@ impl SourceFile {
         }
 
         if !source_path.path().exists() {
-            eprintln!("Source file doesn't exists {:?}", source_path.path());
+            eprintln!("Source file doesn't exists: {:?}", source_path.path());
             return Err(ErrorKind::NotFound);
         };
 
